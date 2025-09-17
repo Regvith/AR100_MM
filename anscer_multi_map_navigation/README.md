@@ -79,16 +79,13 @@ So values must be above x >10 for map2 and below x <10 for map1 <<<<<
 > terminal command: rostopic pub /navigate_to_goal/goal anscer_multi_map_navigation/NavigateToGoalMapActionGoal "{ header: {stamp: now, frame_id: ''}, goal_id: {stamp: now, id: 'test_goal_1'}, goal: { target_x: 14.0, target_y: 3.0, yaw: 0.0, target_map: 'map2' } }"
 
 >For map2->map2
-> terminal command: rostopic pub /navigate_to_goal/goal anscer_multi_map_navigation/NavigateToGoalMapActionGoal "{ header: {stamp: now, frame_id: ''}, goal_id: {stamp: now, id: 'test_goal_2'}, goal: { target_
-x: 10.0, target_y: 2.0, yaw: 0.0, target_map: 'map2' } }"
+> terminal command: rostopic pub /navigate_to_goal/goal anscer_multi_map_navigation/NavigateToGoalMapActionGoal "{ header: {stamp: now, frame_id: ''}, goal_id: {stamp: now, id: 'test_goal_2'}, goal: { target_x: 10.0, target_y: 2.0, yaw: 0.0, target_map: 'map2' } }"
 
 > For map2 -> map1
-> terminal command:  rostopic pub /navigate_to_goal/goal anscer_multi_map_navigation/NavigateToGoalMapActionGoal "{ header: {stamp: now, frame_id: ''}, goal_id: {stamp: now, id: 'test_goal_3'}, goal: { target_
-x: 1.0, target_y: -2.5, yaw: 0.0, target_map: 'map1' } }"
+> terminal command:  rostopic pub /navigate_to_goal/goal anscer_multi_map_navigation/NavigateToGoalMapActionGoal "{ header: {stamp: now, frame_id: ''}, goal_id: {stamp: now, id: 'test_goal_3'}, goal: { target_x: 1.0, target_y: -2.5, yaw: 0.0, target_map: 'map1' } }"
 
 > For map1->map1
-> terminal command: rostopic pub /navigate_to_goal/goal anscer_multi_map_navigation/NavigateToGoalMapActionGoal "{ header: {stamp: now, frame_id: ''}, goal_id: {stamp: now, id: 'test_goal_1'}, goal: { target_
-x: 1.0, target_y: 1.5, yaw: 0.0, target_map: 'map1' } }"
+> terminal command: rostopic pub /navigate_to_goal/goal anscer_multi_map_navigation/NavigateToGoalMapActionGoal "{ header: {stamp: now, frame_id: ''}, goal_id: {stamp: now, id: 'test_goal_1'}, goal: { target_x: 1.0, target_y: 1.5, yaw: 0.0, target_map: 'map1' } }"
 
 # For visualization of graph use
 > terminal command: cd /catkin_ws/src/AR100/anscer_multi_map_navigation/scripts
