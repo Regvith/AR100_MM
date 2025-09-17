@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>anscer_multi_map_navigation</name>
+  <version>0.0.0</version>
+  <description>The anscer_multi_map_navigation package</description>
+
+  <maintainer email="user@todo.todo">user</maintainer>
+  <license>TODO</license>
+
+  <!-- build tool -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- build-time dependencies -->
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>actionlib</build_depend>
+  <build_depend>actionlib_msgs</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>move_base_msgs</build_depend>
+  <build_depend>rospack</build_depend>
+  <build_depend>roslib</build_depend>
+    <build_depend>yaml-cpp</build_depend>
+
+  <build_depend>database_interface</build_depend>
+
+  <!-- run-time / exec dependencies -->
+  <exec_depend>roscpp</exec_depend>
+    <exec_depend>database_interface</exec_depend>
+
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>actionlib</exec_depend>
+  <exec_depend>actionlib_msgs</exec_depend>
+  <exec_depend>move_base_msgs</exec_depend>
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>rospack</exec_depend>
+  <exec_depend>roslib</exec_depend>
+  <exec_depend>yaml-cpp</exec_depend>
+
+  <!-- Optional: if you rely on sqlite at runtime / for rosdep resolution -->
+  <!-- Note: system package is libsqlite3-dev; rosdep will map exec_depend sqlite3 appropriately -->
+  <exec_depend>sqlite3</exec_depend>
+
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+  </export>
+</package>

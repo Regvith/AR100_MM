@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find anscer_gazebo)/launch/anscer_gazebo.launch"/>
+</launch>

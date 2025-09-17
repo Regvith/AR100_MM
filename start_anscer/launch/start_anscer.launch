@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find start_anscer)/launch/include/common.launch.xml"/>
+    <include file="$(find start_anscer)/launch/include/anscer_bringup_simulation.launch.xml"/>
+</launch>

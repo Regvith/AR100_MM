@@ -1,0 +1,9 @@
+<launch>
+
+  <!-- SLAM: Gmapping-->
+  <include file="$(find anscer_slam)/launch/include/gmapping_slam.launch.xml"/>
+  <node pkg="map_server" type="map_saver" name="map_saver" output="screen"/>
+
+  <!-- rviz -->
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find anscer_slam)/rviz/anscer_gmapping.rviz"/>
+</launch>

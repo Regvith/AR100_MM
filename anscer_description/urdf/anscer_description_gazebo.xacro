@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Differential drive-->
+
+  <gazebo>
+    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+      <commandTopic>cmd_vel</commandTopic>
+      <rosDebugLevel>Debug</rosDebugLevel>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <robotBaseFrame>base_footprint</robotBaseFrame>
+      <publishWheelTF>false</publishWheelTF>
+      <publishWheelJointState>true</publishWheelJointState>
+      <legacyMode>false</legacyMode>
+      <updateRate>30</updateRate>
+      <odometrySource>0</odometrySource>            <!--1: WORLD ; 0: Encoder-->
+
+      <alwaysOn>false</alwaysOn>
+      <leftJoint>left_wheel_joint</leftJoint>
+      <rightJoint>right_wheel_joint</rightJoint>
+      <wheelSeparation>${props['wheel_seperation']}</wheelSeparation>
+      <wheelDiameter>${props['wheel_radius']*2}</wheelDiameter>
+      <wheelAcceleration>10</wheelAcceleration>
+      <wheelTorque>1000</wheelTorque>
+    </plugin>
+  </gazebo>
+
+  <!-- LIDAR sensor plugin -->
+
+  <xacro:macro name="lidar_plugin" params="prefix topic">
+    <gazebo reference="${prefix}_link">
+      <sensor type="ray" name="head_${prefix}_sensor">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>${props['lidar_parameters']['visualization']}</visualize>
+        <update_rate>${props['lidar_parameters']['frequency']}</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>${props['lidar_parameters']['horizontal']['samples']}</samples>
+              <resolution>${props['lidar_parameters']['horizontal']['resolution']}</resolution>
+              <min_angle>${(props['lidar_parameters']['horizontal']['min_angle'])*pi/180.0}</min_angle>
+              <max_angle>${(props['lidar_parameters']['horizontal']['max_angle'])*pi/180.0}</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>${props['lidar_parameters']['min_range']}</min>
+            <max>${props['lidar_parameters']['max_range']}</max>
+            <resolution>1.0</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <!-- Noise parameters based on published spec for Hokuyo laser
+                            achieving
+                        "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
+                            stddev
+                        of 0.01m will put 99.7% of samples within 0.03m of the true
+                            reading. -->
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </ray>
+
+
+        <plugin name="${prefix}_sensor_plugin" filename="libgazebo_ros_laser.so">
+          <alwaysOn> true</alwaysOn>
+          <updateRate>${props['lidar_parameters']['frequency']}</updateRate>
+          <topicName>${topic}</topicName>
+          <frameName>${prefix}_link</frameName>
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+  <xacro:lidar_plugin prefix="lidar" topic="scan"/>
+
+
+
+  <!-- IMU sensor plugin -->
+  <gazebo reference="imu_link">
+    <gravity>true</gravity>
+    <sensor name="imu_sensor" type="imu">
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+      <visualize>true</visualize>
+      <topic>__default_topic__</topic>
+      <plugin name="imu_sensor_plugin" filename="libgazebo_ros_imu_sensor.so">
+        <topicName>imu</topicName>
+        <bodyName>base_link</bodyName>
+        <updateRateHZ>30.0</updateRateHZ>
+        <gaussianNoise>0.1</gaussianNoise>
+        <xyzOffset>0 0 0</xyzOffset>
+        <rpyOffset>0 0 0</rpyOffset>
+        <frameName>imu_link</frameName>
+        <accelDrift>0.005 0.005 0.005</accelDrift>
+        <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
+        <rateDrift>0.005 0.005 0.005 </rateDrift>
+        <rateGaussianNoise>0.005 0.005 0.005 </rateGaussianNoise>
+        <headingDrift>0.005</headingDrift>
+        <headingGaussianNoise>0.005</headingGaussianNoise>
+        <initialOrientationAsReference>false</initialOrientationAsReference>
+      </plugin>
+      <pose>0 0 0 0 0 0</pose>
+    </sensor>
+  </gazebo>
+
+
+
+  <!-- For the differential drive wheels -->
+  <xacro:macro name="wheel_properties" params="prefix">
+    <gazebo reference="${prefix}_wheel">
+      <mu1 value="1.0" />
+      <mu2 value="1.0" />
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:wheel_properties prefix="left" />
+  <xacro:wheel_properties prefix="right" />
+
+  <!-- For the caster wheels -->
+  <xacro:macro name="caster_wheel_properties" params="prefix">
+    <gazebo reference="${prefix}_caster_wheel">
+      <mu1 value="0.0" />
+      <mu2 value="0.0" />
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <turnGravityOff>
+                false</turnGravityOff>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:caster_wheel_properties prefix="front_left" />
+  <xacro:caster_wheel_properties prefix="front_right" />
+  <xacro:caster_wheel_properties prefix="back_left" />
+  <xacro:caster_wheel_properties prefix="back_right" />
+
+  <!-- IMU link -->
+  <gazebo reference="imu_link">
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+
+</robot>

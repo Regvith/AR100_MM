@@ -1,0 +1,14 @@
+<launch>
+  <arg name="spawn_pose" default="-x -6.68 -y -5.1 -z 0.1 -R 0.0 -P 0.0 -Y 0.0" doc="Anscer AMR spawn point in the simulation"/>
+  <arg name="model_name" default="anscer_amr" doc="Name for the AGV model" />
+  
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find anscer_gazebo)/worlds/anscer.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>  
+  <node name="spawn_amr_model" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf $(arg spawn_pose) -model $(arg model_name)" respawn="false" output="screen"/>
+</launch>

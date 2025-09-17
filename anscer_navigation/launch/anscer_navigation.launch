@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="map_name" default="map1"/>
+    <include file="$(find anscer_navigation)/launch/include/common.launch.xml">
+        <arg name="map_name" value="$(arg map_name)"/>
+    </include>
+    <include file="$(find anscer_navigation)/launch/navigation/dwa_navigation.launch"/>
+    <include file="$(find anscer_navigation)/launch/localization/amcl_localization.launch"/>
+</launch>

@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Arguments -->
+  <arg name="scan_topic"     default="scan"/>
+  <arg name="use_map_topic" default="true"/>
+
+  <arg name="map_topic"       default="map"/>
+
+  <arg name="odom_frame_id"   default="odom"/>
+  <arg name="base_frame_id"   default="base_footprint"/>
+  <arg name="global_frame_id" value="map"/>
+
+ 
+  <node pkg="amcl" type="amcl" name="amcl" output="screen" >
+    <param name="use_map_topic"             value="$(arg use_map_topic)"/>
+    <param name="min_particles"             value="500"/>
+    <param name="max_particles"             value="2000"/>
+    <param name="kld_err"                   value="0.02"/>
+    <param name="update_min_d"              value="0.1"/>
+    <param name="update_min_a"              value="0.1"/>
+    <param name="resample_interval"         value="1"/>
+    <param name="transform_tolerance"       value="0.5"/>
+    <param name="recovery_alpha_slow"       value="0.001"/>
+    <param name="recovery_alpha_fast"       value="0.01"/>
+
+    <param name="gui_publish_rate"          value="10.0"/>
+
+    <remap from="scan"                      to="$(arg scan_topic)"/>
+    <param name="laser_max_range"           value="27"/>  <!-- for pnf, 18 for sick-->
+    <param name="laser_min_range"           value="0.1"/> 
+    <param name="laser_max_beams"           value="400"/> <!-- for pnf, 360 for sick -->
+    <param name="laser_z_hit"               value="0.95"/>
+    <param name="laser_z_short"             value="0.05"/>
+    <param name="laser_z_max"               value="0.05"/>
+    <param name="laser_z_rand"              value="0.05"/>
+    <param name="laser_sigma_hit"           value="0.2"/>
+    <param name="laser_lambda_short"        value="0.1"/>
+    <param name="laser_likelihood_max_dist" value="2.0"/>
+    <param name="laser_model_type"          value="likelihood_field"/>
+
+    <param name="odom_model_type"           value="diff-corrected"/>
+    <param name="odom_alpha1"               value="0.075"/>
+    <param name="odom_alpha2"               value="0.05"/>
+    <param name="odom_alpha3"               value="0.05"/>
+    <param name="odom_alpha4"               value="0.003"/>
+    <param name="odom_frame_id"             value="$(arg odom_frame_id)"/>
+    <param name="base_frame_id"             value="$(arg base_frame_id)"/>
+    <param name="global_frame_id"           value="$(arg global_frame_id)"/>
+
+    <remap from="map"			    to="$(arg map_topic)"/>
+
+
+    <!-- Added for amcl confidence measurement -->	
+    <param name="confidence_variance"       value="0.0"/>
+    <param name="confidence_low_thresh"     value="0.001"/>
+    <param name="confidence_high_thresh"    value="0.5"/> 
+    <param name="confidence_error_thresh"   value="0.3"/>
+    <param name="confidence_max_beams"      value="75"/>   
+
+    <param name="confidence_yaw_recovery"   value="0.01"/>     
+
+    <param name="distance_thresh"           value="2"/> 	
+    <param name="yaw_thresh"                value="1.7"/>
+    <param name="time_thresh"               value="20"/>
+         	
+
+  </node>
+</launch>

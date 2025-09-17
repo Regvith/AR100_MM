@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>anscer_slam</name>
+  <version>0.1.0</version>
+ <description>
+    The anscer_slam package provides roslaunch scripts for starting the SLAM
+  </description>
+  <maintainer email="anscer@anscer.com">anscer</maintainer>
+  <license>BSD</license>
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>roscpp</depend>
+  <depend>sensor_msgs</depend>
+</package>

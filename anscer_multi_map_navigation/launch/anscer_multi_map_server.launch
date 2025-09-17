@@ -1,0 +1,12 @@
+<launch>
+   <arg name="map_name" default="map1"/>
+    <include file="$(find anscer_navigation)/launch/include/common.launch.xml">
+        <arg name="map_name" value="$(arg map_name)"/>
+    </include>
+    <include file="$(find anscer_navigation)/launch/navigation/dwa_navigation.launch"/>
+    <include file="$(find anscer_navigation)/launch/localization/amcl_localization.launch"/>
+   <node pkg="anscer_multi_map_navigation" type="multi_map_navigation_action_server" name="multi_map_navigation_action_server" output="screen">
+    <param name="wormhole_db_path" value="$(find anscer_multi_map_navigation)/database/wormholes.db" />
+    <param name="map_folder" value="$(find anscer_multi_map_navigation)/maps" />
+  </node>
+</launch>

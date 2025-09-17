@@ -1,0 +1,16 @@
+footprint: [[-0.350, -0.216], [-0.350, 0.216], [0.350, 0.216], [0.350, -0.216]]
+
+obstacle_layer:
+  enabled: true
+  track_unknown_space: false
+  max_obstacle_height: 0.6
+  combination_method: 1  
+  obstacle_range: 5.0
+  raytrace_range: 6.0
+  observation_sources: laser_scan 
+  laser_scan:
+    data_type: LaserScan
+    topic: scan
+    marking: true
+    clearing: true
+    observation_persistence: 0.0

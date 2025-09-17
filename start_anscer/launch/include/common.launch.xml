@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find anscer_description)/launch/anscer_description.launch" />
+</launch>
