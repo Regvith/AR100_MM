@@ -7,7 +7,7 @@ Each room is mapped separately, and the robot uses **overlapping regions ("wormh
 > [Anscer Robotics AR100 repository](https://github.com/anscer/AR100).  
 > This package extends it with multi-map navigation, wormhole management using sql schema, AMCL re-initialization, trajectory_collection and visualization.
 
-cd ~/catkin_ws/src
+>Terminal commands: cd ~/catkin_ws/src
 git clone https://github.com/Regvith/AR100_MM.git
 cd ~/catkin_ws
 catkin_make
@@ -32,14 +32,14 @@ These maps were mapped using gmapping that was given by the AR100 repository men
 
 # To launch the gazebo file
 
-terminal command: roslaunch start_anscer start_anscer.launch
+> terminal command: roslaunch start_anscer start_anscer.launch
 
-> This starts the gazebo simulation and also the roscore master 
+This starts the gazebo simulation and also the roscore master 
 
 # Then launch the below file in another terminal
-terminal command: roslaunch anscer_multi_map_navigation anscer_multi_map_server.launch
+> terminal command: roslaunch anscer_multi_map_navigation anscer_multi_map_server.launch
 
-> This starts the navigation server which is responsible for path planning, obstacle avoidance and amcl_localization, 
+This starts the navigation server which is responsible for path planning, obstacle avoidance and amcl_localization, 
 and the multi_map_navigation node, which is an action server written in c++, that relies on dependencies:
   roscpp
   std_msgs
@@ -76,20 +76,20 @@ Note >>>>> The robot uses absolute odometry and not relative odometry, so in thi
 So values must be above x >10 for map2 and below x <10 for map1 <<<<<
 
 > For map1 -> map2  
-terminal command: rostopic pub /navigate_to_goal/goal anscer_multi_map_navigation/NavigateToGoalMapActionGoal "{ header: {stamp: now, frame_id: ''}, goal_id: {stamp: now, id: 'test_goal_1'}, goal: { target_x: 14.0, target_y: 3.0, yaw: 0.0, target_map: 'map2' } }"
+> terminal command: rostopic pub /navigate_to_goal/goal anscer_multi_map_navigation/NavigateToGoalMapActionGoal "{ header: {stamp: now, frame_id: ''}, goal_id: {stamp: now, id: 'test_goal_1'}, goal: { target_x: 14.0, target_y: 3.0, yaw: 0.0, target_map: 'map2' } }"
 
 >For map2->map2
-terminal command: rostopic pub /navigate_to_goal/goal anscer_multi_map_navigation/NavigateToGoalMapActionGoal "{ header: {stamp: now, frame_id: ''}, goal_id: {stamp: now, id: 'test_goal_2'}, goal: { target_
+> terminal command: rostopic pub /navigate_to_goal/goal anscer_multi_map_navigation/NavigateToGoalMapActionGoal "{ header: {stamp: now, frame_id: ''}, goal_id: {stamp: now, id: 'test_goal_2'}, goal: { target_
 x: 10.0, target_y: 2.0, yaw: 0.0, target_map: 'map2' } }"
 
 > For map2 -> map1
-terminal command:  rostopic pub /navigate_to_goal/goal anscer_multi_map_navigation/NavigateToGoalMapActionGoal "{ header: {stamp: now, frame_id: ''}, goal_id: {stamp: now, id: 'test_goal_3'}, goal: { target_
+> terminal command:  rostopic pub /navigate_to_goal/goal anscer_multi_map_navigation/NavigateToGoalMapActionGoal "{ header: {stamp: now, frame_id: ''}, goal_id: {stamp: now, id: 'test_goal_3'}, goal: { target_
 x: 1.0, target_y: -2.5, yaw: 0.0, target_map: 'map1' } }"
 
 > For map1->map1
-terminal command: rostopic pub /navigate_to_goal/goal anscer_multi_map_navigation/NavigateToGoalMapActionGoal "{ header: {stamp: now, frame_id: ''}, goal_id: {stamp: now, id: 'test_goal_1'}, goal: { target_
+> terminal command: rostopic pub /navigate_to_goal/goal anscer_multi_map_navigation/NavigateToGoalMapActionGoal "{ header: {stamp: now, frame_id: ''}, goal_id: {stamp: now, id: 'test_goal_1'}, goal: { target_
 x: 1.0, target_y: 1.5, yaw: 0.0, target_map: 'map1' } }"
 
 # For visualization of graph use
-terminal command: cd /catkin_ws/src/AR100/anscer_multi_map_navigation/scripts
-terminal command: python3 plot_latest_trajectory.py
+> terminal command: cd /catkin_ws/src/AR100/anscer_multi_map_navigation/scripts
+> terminal command: python3 plot_latest_trajectory.py
