@@ -56,6 +56,7 @@ and the multi_map_navigation node, which is an action server written in c++, tha
 
 # schema
 -- wormholes_schema.sql
+
 CREATE TABLE IF NOT EXISTS wormholes (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   from_map TEXT NOT NULL,
